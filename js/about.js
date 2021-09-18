@@ -12,7 +12,7 @@ const LoadAbout = async() => {
         content.insertAdjacentHTML('afterbegin', response); 
     } else {
         // Output potential error in console
-        Debug("Connection error: " + request.status);
+        console.log("Connection error: " + request.status);
     }
 }
 

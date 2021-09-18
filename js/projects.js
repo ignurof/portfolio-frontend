@@ -11,7 +11,7 @@ const LoadProjects = async() => {
         GenerateProjectCards(projects);
     } else {
         // Output potential error in console
-        Debug("Connection error: " + request.status);
+        console.log("Connection error: " + request.status);
     }
 }
 
