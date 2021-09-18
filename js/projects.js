@@ -19,9 +19,9 @@ const LoadProjects = async() => {
 const GenerateProjectCards = (arr) => {
     let projectsArea = document.getElementById("cards");
 
-    let newCard = "";
+    let out = "";
     for(let x = 0; x < arr.length; x++){
-        newCard = `<div id="card">
+        let newCard = `<div id="card">
         <a href="/project.html?projectid=${arr[x].id}">
         <button type="submit">
         <img src="${arr[x].imageA}'" alt="Image Text"/>
@@ -31,9 +31,11 @@ const GenerateProjectCards = (arr) => {
         </a>
         </div>`;
 
-        // Insert content text into appropriate HTML-element
-        projectsArea.insertAdjacentHTML('afterbegin', newCard); 
+        out += newCard;
     }
+
+    // Insert content text into appropriate HTML-element
+    projectsArea.insertAdjacentHTML('afterbegin', out); 
 }
 
 // When whole site document is loaded, call the method
