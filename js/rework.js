@@ -1,27 +1,8 @@
-// Method that prints out debug value. USAGE: onclick="Debug('Hello World')"
-const Debug = (value) => {
-    console.log(value);
-}
-
-// Load the About me content text using async Fetch call
-const LoadAbout = async() => {
-    let apiUrl = "https://localhost:5001/about";
-    let content = document.getElementById("about-content");
-
-    // Send the request
-    let request = await fetch(apiUrl);
-    if(request.ok) {
-        // If the request was returned 200 OK then parse the response as text
-        let response = await request.text();
-        // Insert content text into appropriate HTML-element
-        content.insertAdjacentHTML('afterbegin', response); 
-    } else {
-        // Output potential error in console
-        Debug("Connection error: " + request.status);
-    }
+const Redirect = () => {
+    window.location.href = "/projects.html";
 }
 
 // When whole site document is loaded, call the method
 if(document.readyState = "complete"){
-    LoadAbout();
+    Redirect();
 }
