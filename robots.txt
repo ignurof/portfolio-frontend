@@ -1,4 +1,0 @@
-﻿User-agent: * 
-Disallow: /Project
-Disallow: /Error
-Sitemap: https://ignurof.xyz/sitemap.xml
