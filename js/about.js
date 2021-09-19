@@ -1,6 +1,6 @@
 // Load the About me content text using async Fetch call
 const LoadAbout = async() => {
-    let apiUrl = "https://localhost:5001/about";
+    let apiUrl = "http://localhost:3111";
     let content = document.getElementById("about-content");
 
     // Send the request
