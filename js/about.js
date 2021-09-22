@@ -1,6 +1,6 @@
 // Load the About me content text using async Fetch call
 const LoadAbout = async() => {
-    let apiUrl = "http://admin.ignurof.xyz";
+    let apiUrl = "http://private.ignurof.xyz/test";
     let content = document.getElementById("about-content");
 
     // Send the request
