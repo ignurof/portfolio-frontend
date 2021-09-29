@@ -22,7 +22,7 @@ const LoadSpecificProject = async() => {
             }
         */
 
-        // Redirect
+        // Redirect if backend did not like the request, aka projectid does not exist on projectList
         if(response.error == 0){
             window.location.href = "/about.html";
         }
