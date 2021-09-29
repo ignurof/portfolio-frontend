@@ -1,6 +1,6 @@
 // Load the Projects JSON using async Fetch call
 const LoadProjects = async() => {
-    let apiUrl = "https://localhost:5001/projects";
+    let apiUrl = "http://api.ignurof.xyz/projects";
 
     // Send the request
     let request = await fetch(apiUrl);
