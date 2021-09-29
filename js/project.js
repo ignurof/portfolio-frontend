@@ -1,95 +1,75 @@
-let projects;
+let projectList;
 
-const LoadDynamicProject = async() => {
+const LoadProjectsList = async() => {
     let apiUrl = "http://api.ignurof.xyz/projects";
 
     // Send the request
     let request = await fetch(apiUrl);
     if(request.ok) {
         // If the request was returned 200 OK then parse the response as json
-        projects = await request.json();
-        // Call the method
-        GenerateProjectContent(projects);
+        projectList = await request.json();
+        // Load the project
+        await LoadSpecificProject();
     } else {
         // Output potential error in console
         console.log("Connection error: " + request.status);
     }
 }
 
-const GenerateProjectContent = (arr) => {
-    // running on https://www.example.com?name=n1&name=n2
+const LoadSpecificProject = async() => {
+    let apiUrl = "http://api.ignurof.xyz/project/";
     let params = new URLSearchParams(location.search);
-    let paramValue = params.get('projectid');
+    let paramValue = params.get("projectid");
 
-    // Reference the url parameter value
-    let projectID = paramValue;
+    let newUrl = apiUrl + paramValue;
 
-    // make the array variables easier to read
-    let pID;
-    let pNAME;
-    let pSUMMARY;
-    let pCONTENT;
-    let pIMAGEA;
-    let pIMAGEB;
-    let pIMAGEC;
-    let pIMAGED;
+    let request = await fetch(newUrl);
+    if(request.ok) {
+        let response = await request.json();
+        /*
+            {
+                "id":1,
+                "title":"Jetpack Doggo 1",
+                "summary":"C#, Unity",
+                "content":"Text about the game",
+                "images":["jp1.jpg","jp2.jpg","jp3.jpg","jp4.jpg"]
+            }
+        */
 
-    let newProjectContent = "";
+        let newProjectContent = `<div id="dynamic-project-header">
+        <form action="project.html" method="get">
+        <button class="btn-back" type="submit">
+        <
+        </button>
+        <input name="projectid" type="hidden" value="${ChangeProject(response.id, "back")}" />
+        </form>
+        <h1 class="name">${response.title}</h1>
+        <form action="project.html" method="get">
+        <button class="btn-forward" type="submit">
+        >
+        </button>
+        <input name="projectid" type="hidden" value="${ChangeProject(response.id, "forward")}" />
+        </form>
+        </div>
+        <div id="dynamic-project-content">
+        <p class="content">
+        ${response.content}
+        </p>
+        <img class="ImgThumbnail" id="imagea" src="img/${response.images[0]}" alt="No Image" />
+        <img class="ImgThumbnail" id="imageb" src="img/${response.images[1]}" alt="No Image" />
+        <img class="ImgThumbnail" id="imagec" src="img/${response.images[2]}" alt="No Image" />
+        <img class="ImgThumbnail" id="imaged" src="img/${response.images[3]}" alt="No Image" />
+        </div>`;   
 
-    for(let i = 0; i < arr.length; i++){
-        if (arr[i].id == projectID){
-            pID = arr[i].id;
-            pNAME = arr[i].name;
-            pSUMMARY = arr[i].summary;
-            pCONTENT = arr[i].content;
-            pIMAGEA = arr[i].imageA;
-            pIMAGEB = arr[i].imageB;
-            pIMAGEC = arr[i].imageC;
-            pIMAGED = arr[i].imageD;
-
-            newProjectContent = `<div id="dynamic-project-header">
-            <form action="project.html" method="get">
-            <button class="btn-back" type="submit">
-            <
-            </button>
-            <input name="projectid" type="hidden" value="${ChangeProject(pID, "back")}" />
-            </form>
-            <h1 class="name">${pNAME}</h1>
-            <form action="project.html" method="get">
-            <button class="btn-forward" type="submit">
-            >
-            </button>
-            <input name="projectid" type="hidden" value="${ChangeProject(pID, "forward")}" />
-            </form>
-            </div>
-            <div id="dynamic-project-content">
-            <p class="content">
-            ${pCONTENT}
-            </p>
-            <img class="ImgThumbnail" id="imagea" src="img/${pIMAGEA}" alt="No Image" />
-            <img class="ImgThumbnail" id="imageb" src="img/${pIMAGEB}" alt="No Image" />
-            <img class="ImgThumbnail" id="imagec" src="img/${pIMAGEC}" alt="No Image" />
-            <img class="ImgThumbnail" id="imaged" src="img/${pIMAGED}" alt="No Image" />
-            </div>`;
-        }
+        // Reference element
+        let wrapper = document.getElementById("wrapper");
+        // Insert into HTML-element
+        wrapper.insertAdjacentHTML('afterbegin', newProjectContent);
+    } else {
+        console.error("Connection error: " + request.status);
+        // Redirect
+        window.location.href = "/about.html";
     }
-
-    // verify that the projectID exist, otherwise redirect
-    if(pID == null){
-        if (projectID > projects[0]) {
-            window.location.href = "/about.html";
-        }
-    
-        if (projectID < projects[projects.length - 1]) {
-            window.location.href = "/about.html";
-        }
-    }
-    
-
-    // Reference element
-    let wrapper = document.getElementById("wrapper");
-    // Insert into HTML-element
-    wrapper.insertAdjacentHTML('afterbegin', newProjectContent);
 }
 
 const ChangeProject = (id, dir) => {
@@ -107,5 +87,5 @@ const ChangeProject = (id, dir) => {
 
 // When whole site document is loaded, call the method
 if(document.readyState = "complete"){
-    LoadDynamicProject();
+    LoadProjectsList();
 }
