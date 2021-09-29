@@ -8,7 +8,7 @@ const LoadProjects = async() => {
         // If the request was returned 200 OK then parse the response as json
         let projects = await request.json();
         // Call the method
-        GenerateProjectCards(projects);
+        GenerateProjectCards(projects.projects);
     } else {
         // Output potential error in console
         console.log("Connection error: " + request.status);

@@ -1,21 +1,3 @@
-let projectList;
-
-const LoadProjectsList = async() => {
-    let apiUrl = "http://api.ignurof.xyz/projects";
-
-    // Send the request
-    let request = await fetch(apiUrl);
-    if(request.ok) {
-        // If the request was returned 200 OK then parse the response as json
-        projectList = await request.json();
-        // Load the project
-        await LoadSpecificProject();
-    } else {
-        // Output potential error in console
-        console.log("Connection error: " + request.status);
-    }
-}
-
 const LoadSpecificProject = async() => {
     let apiUrl = "http://api.ignurof.xyz/project/";
     let params = new URLSearchParams(location.search);
@@ -34,7 +16,16 @@ const LoadSpecificProject = async() => {
                 "content":"Text about the game",
                 "images":["jp1.jpg","jp2.jpg","jp3.jpg","jp4.jpg"]
             }
+            OR
+            {
+                "error": 0
+            }
         */
+
+        // Redirect
+        if(response.error == 0){
+            window.location.href = "/about.html";
+        }
 
         let newProjectContent = `<div id="dynamic-project-header">
         <form action="project.html" method="get">
@@ -67,8 +58,6 @@ const LoadSpecificProject = async() => {
         wrapper.insertAdjacentHTML('afterbegin', newProjectContent);
     } else {
         console.error("Connection error: " + request.status);
-        // Redirect
-        window.location.href = "/about.html";
     }
 }
 
@@ -87,5 +76,5 @@ const ChangeProject = (id, dir) => {
 
 // When whole site document is loaded, call the method
 if(document.readyState = "complete"){
-    LoadProjectsList();
+    LoadSpecificProject();
 }
