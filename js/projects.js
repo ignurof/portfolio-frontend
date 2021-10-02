@@ -24,8 +24,8 @@ const GenerateProjectCards = (arr) => {
         let newCard = `<div id="card">
         <a href="/project.html?projectid=${arr[x].id}">
         <button type="submit">
-        <img src="${arr[x].imageA}'" alt="Image Text"/>
-        <h4>${arr[x].name}</h4>
+        <img src="img/${arr[x].images[0]}" alt="Image Text"/>
+        <h4>${arr[x].title}</h4>
         <p>${arr[x].summary}</p>
         </button>
         </a>
