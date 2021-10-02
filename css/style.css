@@ -72,40 +72,6 @@ main article {
   display: grid;
   grid-template-columns: 1fr;
 }
-main article #contact {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-main article #contact input {
-  border: none;
-  /* Extrautrymme inne i taggen */
-  padding: 1em;
-  background-color: #737373;
-  font-size: 16px;
-  color: #eaeaea;
-  margin-bottom: 1em;
-}
-main article #contact textarea {
-  border: none;
-  /* Extrautrymme inne i taggen */
-  padding: 1em;
-  background-color: #737373;
-  font-size: 16px;
-  color: #eaeaea;
-  margin-bottom: 1em;
-}
-main article #contact .form-submit {
-  background-color: #333;
-  color: #9ad0ff;
-  border-radius: 4px;
-  width: 30%;
-  position: relative;
-  left: 35%;
-  cursor: pointer;
-}
-main article #contact:focus {
-  background-color: #a4a4a4;
-}
 main article #cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
