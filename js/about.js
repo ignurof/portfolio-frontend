@@ -9,8 +9,7 @@ const LoadAbout = async() => {
         // If the request was returned 200 OK then parse the response as text
         let response = await request.text();
         // Insert content text into appropriate HTML-element
-        //content.insertAdjacentHTML('afterbegin', response);
-        content.insertAdjacentText('afterbegin', response);
+        content.insertAdjacentHTML('afterbegin', response);
     } else {
         // Output potential error in console
         console.log("Connection error: " + request.status);
