@@ -19,6 +19,9 @@ const LoadProjects = async() => {
 const GenerateProjectCards = (arr) => {
     let projectsArea = document.getElementById("cards");
 
+    // Reverse array to show latest at the top
+    arr = arr.reverse();
+
     let out = "";
     for(let x = 0; x < arr.length; x++){
         let newCard = `<div id="card">
